@@ -86,5 +86,10 @@ h2{
 /* Configuración de tabla */
 
 td{
+  text-align: center;
   padding: 2em;
+}
+
+.input{
+  text-align: center;
 }
