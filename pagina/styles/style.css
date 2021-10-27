@@ -6,15 +6,6 @@ body {
 
 @import url(//db.onlinewebfonts.com/c/c9bdb2d40daf1d608a38bd112bb72b48?family=Greek);
 
-@font-face {
-  font-family: "Greek"; 
-  src: url("//db.onlinewebfonts.com/t/c9bdb2d40daf1d608a38bd112bb72b48.eot"); 
-  src: url("//db.onlinewebfonts.com/t/c9bdb2d40daf1d608a38bd112bb72b48.eot?#iefix") format("embedded-opentype"),
-  url("//db.onlinewebfonts.com/t/c9bdb2d40daf1d608a38bd112bb72b48.woff2") format("woff2"), 
-  url("//db.onlinewebfonts.com/t/c9bdb2d40daf1d608a38bd112bb72b48.woff") format("woff"), 
-  url("//db.onlinewebfonts.com/t/c9bdb2d40daf1d608a38bd112bb72b48.ttf") format("truetype"), 
-  url("//db.onlinewebfonts.com/t/c9bdb2d40daf1d608a38bd112bb72b48.svg#Greek") format("svg");
- }
 
 
 /* Configuración de párrafos */
@@ -91,5 +82,12 @@ td{
 }
 
 .input{
+  text-align: center;
+}
+
+.selector-tipo-cuenta{
+  position: relative;
+  top: 40px;
+  left: 600px;
   text-align: center;
 }
