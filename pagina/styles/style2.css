@@ -92,3 +92,16 @@ td{
   text-align: center;
 }
 
+table{
+  position: relative;
+  left: 430px;
+}
+img{
+  position: relative;
+  left: 320px;
+}
+
+.boton-social .a:hover{
+  size: 200px;
+
+}
