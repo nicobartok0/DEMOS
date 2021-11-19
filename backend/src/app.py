@@ -1,11 +1,12 @@
 from flask import Flask, request, jsonify
 from flask_pymongo import PyMongo, ObjectId
-from flask_cors import CORS
+from flask_cors import CORS, cross_origin
+
 
 app = Flask(__name__)
 app.config['MONGO_URI']='mongodb://localhost/pythonreactdb'
 mongo = PyMongo(app)
-CORS(app)
+CORS(app, support_credentials=True)
 db = mongo.db.users
 
 @app.route('/users', methods=['POST'])
@@ -42,9 +43,12 @@ def getUser(id):
     })
 
 @app.route('/users/<id>', methods=['DELETE'])
+@cross_origin()
 def deleteUser(id):
     db.delete_one({'_id': ObjectId(id)})
     return jsonify({'msg': 'Usuario Eliminado'})
+    response.headers.add("Access-Control-Allow-Origin", "*")
+    return response
 
 @app.route('/users/<id>', methods=['PUT'])
 def updateUser(id):
