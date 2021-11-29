@@ -8,13 +8,18 @@ export const Users = () => {
     const[email,setEmail] = useState('')
     const[password,setPassword] = useState('')
 
+    const [editing, setEditing] = useState(false)
+    const [id, setId] = useState('')
+
     const [users, setUsers] = useState([])
 
     
     
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const res = await fetch('http://localhost:5000/users', {
+
+        if(!editing){
+            const res = await fetch('http://localhost:5000/users', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -27,7 +32,32 @@ export const Users = () => {
         })
         const data = await res.json();
         console.log(data)
+        } else {
+            const res = await fetch(`${API}/users/${id}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    name,
+                    email,
+                    password
+                })
+            })
+            const data = await res.json();
+            console.log(data)
+            setEditing(false);
+            setId('')
+        }
+        await getUsers();
+
+        setName('');
+        setEmail('');
+        setPassword('');
+
     }
+
+
 
     const getUsers = async () => {
         const res = await fetch('http://localhost:5000/users')
@@ -35,20 +65,32 @@ export const Users = () => {
         setUsers(data)
     }
 
-    const editUser = (id) => {
-        console.log(id)
+    const editUser = async (id) => {
+        const res = await fetch(`${API}/user/${id}`)
+        const data = await res.json();
+
+        setEditing(true);
+        setId(id)
+
+        setName(data.name)
+        setEmail(data.email)
+        setPassword(data.password)
     }
     useEffect(() =>{
         getUsers();
     }, [])
 
     const deleteUser = async (id) => {
-        const res = await fetch('http://localhost:5000/users/$(id)', {
-        method: 'DELETE',
-        mode: 'cors',
-    });
-        const data = await res.json();
-        console.log(data)
+       const userResponse = window.confirm("¿Estás seguro que vas a eliminar este usuario?")
+       if (userResponse){
+        const res = await fetch(`http://localhost:5000/users/${id}`, {
+            method: 'DELETE',
+            mode: 'cors',
+        });
+            const data = await res.json();
+            console.log(data)
+            await getUsers();
+       }
     }
     
 
@@ -89,7 +131,7 @@ export const Users = () => {
 
                     </div>
                     <button className="btn btn-primary btn-block">
-                        Create
+                        {editing ? 'Edit' : 'Create'}
 
                     </button>
                 </form>
